@@ -1,8 +1,10 @@
 package fmt_example
 
-import "fmt"
+import (
+	"fmt"
+)
 
-func Fmt_example() {
+func Fmt_example() string {
 	fmt.Println("Hello, World!")
 
 	name := "Jonathan"
@@ -15,9 +17,9 @@ func Fmt_example() {
 	fmt.Printf("Binario:   %b\n", age)    // 11001
 	fmt.Printf("Hex:       %x\n", age)    // 19
 	fmt.Printf("Float:     %f\n", pi)     // 3.141590
-	fmt.Printf("2 decimal: %.2f\n", pi)   // 3.14
+	fmt.Printf("2 decimal: %.2f\n", pi)   // 3.14 el 2 indica que queremos mostrar 2 number despues del .
 	fmt.Printf("Bool:      %t\n", active) // true
-	fmt.Printf("Tipo:      %T\n", name)   // string
+	fmt.Printf("Tipo:      %T\n", name)   // string retorna el tipo de  dato
 	fmt.Printf("Cualquier: %v\n", age)
 
 	fmt.Print("Ingresa tu nombre y edad: ")
@@ -31,5 +33,9 @@ func Fmt_example() {
 	fmt.Scanf("%d/%d/%d", &day, &month, &year)
 
 	fmt.Printf("Día: %d, Mes: %d, Año: %d\n", day, month, year)
+
+	//para retornar strings
+	str := fmt.Sprintf("strings %d", 5)
+	return str
 
 }
