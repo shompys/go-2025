@@ -6,39 +6,41 @@ import (
 	"time"
 )
 
-type keyName string
-type keyInt string
+type keyCustom string
 
-const (
-	key_name   keyName = "api-key"
-	my_key_int keyInt  = "my-key-int"
-)
+var key keyCustom = "key"
 
 func Contexto() {
-
 	ctx := context.Background()
-	ctx = context.WithValue(ctx, key_name, "super-secret-api-key")
-	ctx = context.WithValue(ctx, my_key_int, 5)
+	ctx = context.WithValue(ctx, key, "value")
 	viewContext(ctx)
 
-	ctx2, cancel := context.WithTimeout(context.Background(), 3*time.Second)
-	myProcess(ctx2)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*2)
 	defer cancel()
+	go myProcess(ctx)
+	select {
+	case <-ctx.Done():
+		fmt.Println("-> ", ctx.Err())
+
+	}
 
 }
+
 func viewContext(ctx context.Context) {
-	fmt.Printf("My value is %s\n", ctx.Value(key_name))
-	fmt.Printf("My value is %d\n", ctx.Value(my_key_int))
+	fmt.Printf("my value is %s\n", ctx.Value(key))
 }
+
 func myProcess(ctx context.Context) {
+	//espera que el contexto expire para terminar
 	for {
 		select {
 		case <-ctx.Done():
-			fmt.Println("mi mensaje de error")
 			fmt.Println(ctx.Err())
 			return
 		default:
-			fmt.Println("soy default")
+			fmt.Println("Doing some process")
 		}
+		//controlamos la velocidad del loop
+		time.Sleep(500 * time.Millisecond)
 	}
 }
