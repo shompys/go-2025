@@ -39,8 +39,11 @@ func examples() {
 	fmt.Println(paquetes.NetPackage())
 	goroutines.Goroutines()
 	contexto.Contexto()
+	goroutines.Example()
+	goroutines.Atomic()
+	goroutines.ChannelRanger()
 }
 
 func main() {
-
+	
 }
